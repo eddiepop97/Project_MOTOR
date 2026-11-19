@@ -1,6 +1,5 @@
 #include "device_driver.h"
 #include <stdio.h>
-
 #define TIM2_FREQ 	  			(8000000.) 	      		// Hz
 #define TIM2_TICK	  			(1000000./TIM2_FREQ)	// usec
 #define TIME2_PLS_OF_1ms  		(1000./TIM2_TICK)
