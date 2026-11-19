@@ -50,9 +50,3 @@ void Change_Speed(short duty)
 	Macro_Set_Bit(TIM2->EGR,0);
 }
 
-void Change_Direction(short duty)
-{
-	TIM2->CCR1=0;
-	TIM2->CCR2=(TIM2->ARR+1)*duty/100;
-	Macro_Set_Bit(TIM2->EGR,0);
-}

@@ -9,11 +9,11 @@ extern volatile int direction;
 
 void Motor_Run(int speed, int direction)
 {
+    printf("방향: %d\n",direction);
      if(direction == 0) //CW
      {
          TIM2->CCR2 = (TIM2 -> ARR +1)*speed/100;
          TIM2->CCR1 = 0;
-         direction = 1;
          return;
      }
 
@@ -21,7 +21,6 @@ void Motor_Run(int speed, int direction)
      {
          TIM2->CCR2 = 0;
          TIM2->CCR1 = (TIM2 -> ARR +1)*speed/100; 
-         direction = 0;
          return;
      }
 }

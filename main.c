@@ -40,14 +40,13 @@ void Main(void)
         {
             start_flag = 0;
         }
-
     }
 }
 
 void Check_Uart(char input)
 {
     printf("input: %c\n",input);
-    printf("방향: %d\n",direction);
+
     if((input>='1')&&(input<='9'))
     {   
         speed=(int)(input)-48;
@@ -55,9 +54,14 @@ void Check_Uart(char input)
         printf("%d\n",speed);
         Change_Speed(speed);
     }
-    else if((input=='F')||(input=='R'))  
+    else if(input=='F')
     {
-        {
-            Motor_Run(speed, direction);
-        }
+        direction=0;
+        Motor_Run(speed, direction);
+    }
+    else if(input=='R')
+    {
+        direction=1;
+        Motor_Run(speed, direction);
+    }
 }
