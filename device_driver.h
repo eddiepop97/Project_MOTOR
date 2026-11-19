@@ -39,5 +39,4 @@ extern void Motor_Init(void);
 extern void TIM3_Stopwatch_Start(void);
 extern unsigned int TIM3_Stopwatch_Stop(void);
 extern void TIM3_Out_Init(void);
-extern void Change_Speed(short duty);
 extern void Change_Direction(short duty);

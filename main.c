@@ -52,7 +52,7 @@ void Check_Uart(char input)
         speed=(int)(input)-48;
         speed=50+speed*5;
         printf("%d\n",speed);
-        Change_Speed(speed);
+        Motor_Run(speed, direction);
     }
     else if(input=='F')
     {
