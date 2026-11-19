@@ -55,6 +55,9 @@ void Check_Uart(char input)
         printf("%d\n",speed);
         Change_Speed(speed);
     }
-    else if((input=='F')||(input=='R'))  Motor_Run(speed, direction);
-   
+    else if((input=='F')||(input=='R'))  
+    {
+        {
+            Motor_Run(speed, direction);
+        }
 }

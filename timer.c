@@ -38,27 +38,6 @@ void TIM3_Out_Init(void)
 	TIM3->CCER = (0<<9)|(1<<8);
 }
 
-void TIM3_Out_Freq_Generation_2(unsigned short freq)
-{
-	TIM3->PSC = (unsigned int)(TIMXCLK/TIM3_FREQ + 0.5)-1;
-	TIM3->ARR = TIM3_FREQ/freq-1;
-	TIM3->CCR3 = TIM3->ARR/2;
-
-	Macro_Set_Bit(TIM3->EGR,0);
-	TIM3->CR1 = (1<<4)|(0<<3)|(0<<1)|(1<<0);
-}
-
-void TIM3_Out_Freq_Generation(unsigned short freq)
-{
-	TIM3->PSC = (unsigned int)(TIMXCLK/TIM3_FREQ + 0.5)-1;
-	TIM3->ARR = TIM3_FREQ/freq-1;
-	TIM3->CCR3 = TIM3->ARR/4;
-
-	Macro_Set_Bit(TIM3->EGR,0);
-	TIM3->CR1 = (1<<4)|(0<<3)|(0<<1)|(1<<0);
-}
-
-
 void TIM3_Out_Stop(void)
 {
 	Macro_Clear_Bit(TIM3->CR1, 0);
