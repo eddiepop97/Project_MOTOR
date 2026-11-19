@@ -10,14 +10,15 @@ static void Sys_Init(int baud)
 	LED_Init();
 }
 
-void Check_Uart(char input);
+// void Check_Uart(char input);
 
 volatile int Uart_Data_In = 0;
 volatile unsigned char Uart_Data = 0;
-extern int speed=0;
-extern int direction=0;
-extern int run=0;
-extern int start_flag = 0;
+volatile int speed=0;
+volatile int direction=0;
+volatile int run=0;
+volatile int start_flag = 0;
+volatile int long_pulse_flag = 0;
 
 void Main(void)
 {
@@ -30,23 +31,23 @@ void Main(void)
 
     for (;;) 
     {
-        if (run) 
+        if (long_pulse_flag)
         {
-            speed = 55;
-            Motor_Run(speed, direction);
-        }
-        else
-        {
-            Motor_Stop();
+            if (!run) 
+            {
+                speed = 55;
+                Motor_Run(speed, direction);
+                run = 1;
+            }
+            else 
+            {
+                Motor_Stop();
+                run = 0;
+            }
+            long_pulse_flag = 0;
         }
 
-        if(Uart_Data_In)
-		{
-			Check_Uart(Uart_Data);
-			Uart_Data_In = 0;
-		}
-
-        if(start_flag)
+        if(run && start_flag)
         {
             Motor_Run(speed, direction);
             start_flag = 0;
@@ -54,6 +55,7 @@ void Main(void)
     }
 }
 
+/*
 void Check_Uart(char input)
 {
     printf("input: %c\n",input);
@@ -76,3 +78,5 @@ void Check_Uart(char input)
         Motor_Run(speed, direction);
     }
 }
+*/
+

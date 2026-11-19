@@ -9,19 +9,38 @@ void _Invalid_ISR(void)
 	for(;;);
 }
 
-extern volatile int Uart_Data_In;
-extern volatile unsigned char Uart_Data;
-
-void USART2_IRQHandler(void)
-{
-	Uart_Data = (unsigned char)USART2->DR;
-	Uart_Data_In = 1;
-	NVIC_ClearPendingIRQ(38);
-}
-
+extern volatile int speed;
 extern volatile int run;
 extern volatile int direction;
 extern volatile int start_flag;
+extern volatile int long_pulse_flag;
+
+/*
+extern volatile int Uart_Data_In;
+extern volatile unsigned char Uart_Data;
+*/
+void USART2_IRQHandler(void)
+{
+    unsigned char input = (unsigned char)USART2->DR;
+
+    printf("input: %c\n",input);
+
+    if((input >= '1')&&(input <= '9'))
+    {   
+        speed = 50 + ((int)(input) - 48) * 5;
+    }
+    else if(input=='F')
+    {
+        direction = 0;
+    }
+    else if(input=='R')
+    {
+        direction = 1;
+    }
+    start_flag = 1;
+
+	NVIC_ClearPendingIRQ(38);
+}
 
 void EXTI15_10_IRQHandler(void)
 {
@@ -32,7 +51,7 @@ void EXTI15_10_IRQHandler(void)
     printf("t: %d\n", t);
     if (t >= 2000000) 
     {
-        run = !run;
+        long_pulse_flag = 1;
     }
     else if (t < 2000000) 
     {
