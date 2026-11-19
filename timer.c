@@ -1,28 +1,29 @@
 #include "device_driver.h"
-#define TIM3_TICK             (20)                     // usec
-#define TIM3_FREQ               (1000000./TIM3_TICK)    // Hz
-#define TIM3_PLS_OF_1ms      (1000./TIM3_TICK)
-#define TIM3_MAX              (0xffffffffu)
 
-void TIM3_Stopwatch_Start(void)
+#define TIM5_TICK         	(20) 					// usec
+#define TIM5_FREQ 	  		(1000000./TIM5_TICK)	// Hz
+#define TIM5_PLS_OF_1ms  	(1000./TIM5_TICK)
+#define TIM5_MAX              (0xffffffffu)
+
+void TIM5_Stopwatch_Start(void)
 {
-    Macro_Set_Bit(RCC->APB1ENR, 0);
+	Macro_Set_Bit(RCC->APB1ENR, 3);
 
-    TIM3->CR1 = (1<<4)|(1<<3);
-    TIM3->PSC = (unsigned int)(TIMXCLK/TIM3_FREQ + 0.5)-1;
-    TIM3->ARR = TIM3_MAX;
+	TIM5->CR1 = (1<<4)|(1<<3);
+	TIM5->PSC = (unsigned int)(TIMXCLK/TIM5_FREQ + 0.5) - 1;
+	TIM5->ARR = TIM5_MAX;
 
-    Macro_Set_Bit(TIM3->EGR,0);
-    Macro_Set_Bit(TIM3->CR1, 0);
+	Macro_Set_Bit(TIM5->EGR, 0);
+	Macro_Set_Bit(TIM5->CR1, 0);
 }
 
-unsigned int TIM3_Stopwatch_Stop(void)
+unsigned int TIM5_Stopwatch_Stop(void)
 {
-    unsigned int time;
+	unsigned int time;
 
-    Macro_Clear_Bit(TIM3->CR1, 0);
-    time = (TIM3_MAX - TIM3->CNT) * TIM3_TICK;
-    return time;
+	Macro_Clear_Bit(TIM5->CR1, 0);
+	time = (TIM5->ARR - TIM5->CNT) * TIM5_TICK;
+	return time;
 }
 
 

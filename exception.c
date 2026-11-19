@@ -25,15 +25,17 @@ extern volatile int start_flag;
 
 void EXTI15_10_IRQHandler(void)
 {
-    TIM3_Stopwatch_Start();
-    Key_Wait_Key_Released();
-    unsigned int t = TIM3_Stopwatch_Stop();
+    TIM5_Stopwatch_Start();
+	Key_Wait_Key_Released();
+	unsigned int t = TIM5_Stopwatch_Stop();
 
     printf("t: %d\n", t);
-    if (t >= 2000000) { run = !run; }
+    if (t >= 2000000) 
+    {
+        run = !run;
+    }
     else if (t < 2000000) 
     {
-
         start_flag = 1;
         direction = !direction;
     }

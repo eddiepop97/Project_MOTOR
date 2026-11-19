@@ -30,6 +30,16 @@ void Main(void)
 
     for (;;) 
     {
+        if (run) 
+        {
+            speed = 55;
+            Motor_Run(speed, direction);
+        }
+        else
+        {
+            Motor_Stop();
+        }
+
         if(Uart_Data_In)
 		{
 			Check_Uart(Uart_Data);
@@ -38,6 +48,7 @@ void Main(void)
 
         if(start_flag)
         {
+            Motor_Run(speed, direction);
             start_flag = 0;
         }
     }
