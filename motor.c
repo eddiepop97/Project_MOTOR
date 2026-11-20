@@ -4,9 +4,6 @@
 #define TIM2_TICK	  			(1000000./TIM2_FREQ)	// usec
 #define TIME2_PLS_OF_1ms  		(1000./TIM2_TICK)
 
-extern volatile int speed;
-extern volatile int direction;
-
 void Motor_Run(int speed, int direction)
 {
     printf("방향: %d\n",direction);
@@ -28,7 +25,6 @@ void Motor_Stop(void)
 {
     TIM2->CCR1 = 0;
     TIM2->CCR2 = 0;
-    speed = 0;
 }
 
 void Motor_Init(void)
@@ -38,8 +34,8 @@ void Motor_Init(void)
     Macro_Write_Block(GPIOA->MODER,0x3,0x2,0); //ALTERNATE 
     Macro_Write_Block(GPIOA->MODER,0x3,0x2,2); //ALTERNATE 
 
-    Macro_Write_Block(GPIOA->AFR[0],0xf,0x1,0); //PA0 TIM2로 만들기 AF01
-    Macro_Write_Block(GPIOA->AFR[0],0xf,0x1,4); //PA1 TIM2로 만들기 AF01
+    Macro_Write_Block(GPIOA->AFR[0],0xf,0x1,0); //PA0 TIM2_CH1로 만들기 AF01
+    Macro_Write_Block(GPIOA->AFR[0],0xf,0x1,4); //PA1 TIM2_CH2로 만들기 AF01
 
     Macro_Write_Block(TIM2->CCMR1,0xff,0x68,0); //PWM1 설정 PA0
     Macro_Write_Block(TIM2->CCMR1,0xff,0x68,8); //PWM1 설정 PA1

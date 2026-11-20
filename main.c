@@ -25,6 +25,7 @@ void Main(void)
     Sys_Init(115200);
     Key_Poll_Init();
     Motor_Init();    
+    TIM3_Out_Init();
     
     Uart2_RX_Interrupt_Enable(1);
     Key_ISR_Enable(1);
@@ -33,14 +34,16 @@ void Main(void)
     {
         if (long_pulse_flag)
         {
+            Play_Song();
             if (!run) 
             {
-                speed = 55;
+                speed = 80;
                 Motor_Run(speed, direction);
                 run = 1;
             }
             else 
             {
+                speed = 0;
                 Motor_Stop();
                 run = 0;
             }
@@ -48,7 +51,8 @@ void Main(void)
         }
 
         if(run && start_flag)
-        {
+        { 
+            
             Motor_Run(speed, direction);
             start_flag = 0;
         }

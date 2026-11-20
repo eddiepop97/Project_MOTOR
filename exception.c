@@ -28,14 +28,17 @@ void USART2_IRQHandler(void)
     if((input >= '1')&&(input <= '9'))
     {   
         speed = 50 + ((int)(input) - 48) * 5;
+        if(run) Buzzer_Speed_Beep(523,783);
     }
     else if(input=='F')
     {
         direction = 0;
+        if(run) Buzzer_Speed_Beep(783,523);
     }
     else if(input=='R')
     {
         direction = 1;
+        if(run) Buzzer_Speed_Beep(783,523);
     }
     start_flag = 1;
 

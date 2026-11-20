@@ -38,3 +38,14 @@ extern void Motor_Init(void);
 // Timer.c
 extern void TIM5_Stopwatch_Start(void);
 extern unsigned int TIM5_Stopwatch_Stop(void);
+extern void TIM3_Out_Init(void);
+extern void TIM3_Delay(int time);
+extern void TIM3_Out_Stop(void);
+extern void TIM3_Out_Freq_Generation(unsigned short freq);
+
+//buzzer.c
+extern void Buzzer_Beep(unsigned char tone, int duration);
+extern void Play_Song(void);
+
+
+extern void Buzzer_Speed_Beep(int first, int second);
