@@ -15,10 +15,6 @@ extern volatile int direction;
 extern volatile int start_flag;
 extern volatile int long_pulse_flag;
 
-/*
-extern volatile int Uart_Data_In;
-extern volatile unsigned char Uart_Data;
-*/
 void USART2_IRQHandler(void)
 {
     unsigned char input = (unsigned char)USART2->DR;
